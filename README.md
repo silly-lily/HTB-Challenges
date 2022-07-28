@@ -1,2 +1,2 @@
 # HTB-writeups
-Hack The Box Writeups
+My writeups for Hack The Box.
