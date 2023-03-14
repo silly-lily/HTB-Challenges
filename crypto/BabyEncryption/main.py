@@ -1,17 +1,3 @@
-
-
-def encryption(msg):
-
-    ct = []
-
-    for char in msg:
-
-        ct.append(((123*char)+18)%256)
-
-    return bytes(ct)
-
- 
-
 def decryption(msg):
 
     pt = []
