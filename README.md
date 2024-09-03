@@ -1,2 +1,2 @@
-# HTB-writeups
-My writeups for [Hack The Box](https://www.hackthebox.com/)  challenges :))
+# HTB-Challenges
+My writeups for [Hack The Box Challenges](https://app.hackthebox.com/challenges)
