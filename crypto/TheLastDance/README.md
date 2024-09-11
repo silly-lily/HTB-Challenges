@@ -1,7 +1,8 @@
-# Encryption
+# The Last Dance
+The Last Dance is a very easy crypto challenge on hack the box focusing on the ChaCha20 encryption algorithm.
 
-The Last Dnace is a very easy crypto challenge on hack the box.
-First by looking at the encryption algorthim, we see that we are using the ChaCha20 encryption algorithm.
+## Encryption
+First by looking at the encryption algorithm in the provided challenge files, we see that we are using the ChaCha20 encryption algorithm:
 
 ````Python
 def encryptMessage(message, key, nonce):
@@ -27,12 +28,12 @@ encrypted_message = encryptMessage(message, key, iv)
 encrypted_flag = encryptMessage(FLAG, key, iv)
 ````
 
-# ChaCha20
+## ChaCha20
 
 ChaCha20 is a stream cipher that takes in a key and an iv. The plaintext is then xored with the cipher to create the ciphertext.
 ![ChaCha20 diagram](chacha20.png)
 
-# Decyrption
+## Decyrption
 
 Since both the encrypted flag and the encrypted message were encrypted using ChaCha20 with the same key and iv and we know the plaintext message, we can calculate the value of the ChaCha20 cipher.
 
@@ -66,3 +67,6 @@ Lastly, we need to xor the ciphertext flag `ct_flag` with the cipher `cipher` si
 ````Python
 pt_flag = cipher = bytes(a ^ b for a, b in zip(cipher, ct_flag))
 ````
+
+## Flag
+> HTB{und3r57AnD1n9_57R3aM_C1PH3R5_15_51mPl3_a5_7Ha7}

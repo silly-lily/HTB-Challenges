@@ -1,0 +1,115 @@
+WEb/ API vuln
+
+
+3 .js files:
+command.js = stores command variables
+game.js = driver
+main.js = choose response based on input
+
+In main.js fetch options give us all options:
+const fetchOptions = () => {
+    fetch('/api/options')
+        .then((data) => data.json())
+        .then((res) => {
+            availableOptions = res.allPossibleCommands;
+
+        })
+        .catch(() => {
+            availableOptions = undefined;
+        })
+}
+
+In main.js checkMessage gives output based on input
+async function CheckMessage() {
+    fetchingResponse = true;
+    currentCommand = commandHistory[commandHistory.length - 1];
+
+    if (availableOptions[currentStep].includes(currentCommand) || availableOptions['secret'].includes(currentCommand)) {
+        await fetch('/api/monitor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'command': currentCommand })
+        })
+            .then((res) => res.json())
+            .then(async (data) => {
+                console.log(data)
+                await displayLineInTerminal({ text: data.message });
+
+                if(data.message.includes('Game over')) {
+                    playerLost();
+                    fetchingResponse = false;
+                    return;
+                }
+
+                if(data.message.includes('HTB{')) {
+                    playerWon();
+                    fetchingResponse = false;
+
+                    return;
+                }
+
+                if (currentCommand == 'HEAD NORTH') {
+                    currentStep = '2';
+                }
+                else if (currentCommand == 'FOLLOW A MYSTERIOUS PATH') {
+                    currentStep = '3'
+                }
+                else if (currentCommand == 'SET UP CAMP') {
+                    currentStep = '4'
+                }
+
+                let lineBreak = document.createElement("br");
+
+
+                beforeDiv.parentNode.insertBefore(lineBreak, beforeDiv);
+                displayLineInTerminal({ text: '<span class="command">You have 4 options!</span>' })
+                displayLinesInTerminal({ lines: availableOptions[currentStep] })
+                fetchingResponse = false;
+            });
+
+
+    }
+    else {
+        displayLineInTerminal({ text: "You do realise its not a park where you can just play around and move around pick from options how are hard it is for you????" });
+        fetchingResponse = false;
+    }
+}
+
+Go to http://94.237.63.199:36663/api/options
+{
+    "allPossibleCommands": {
+        "1": [
+            "HEAD NORTH",
+            "HEAD WEST",
+            "HEAD EAST",
+            "HEAD SOUTH"
+        ],
+        "2": [
+            "GO DEEPER INTO THE FOREST",
+            "FOLLOW A MYSTERIOUS PATH",
+            "CLIMB A TREE",
+            "TURN BACK"
+        ],
+        "3": [
+            "EXPLORE A CAVE",
+            "CROSS A RICKETY BRIDGE",
+            "FOLLOW A GLOWING BUTTERFLY",
+            "SET UP CAMP"
+        ],
+        "4": [
+            "ENTER A MAGICAL PORTAL",
+            "SWIM ACROSS A MYSTERIOUS LAKE",
+            "FOLLOW A SINGING SQUIRREL",
+            "BUILD A RAFT AND SAIL DOWNSTREAM"
+        ],
+        "secret": [
+            "Blip-blop, in a pickle with a hiccup! Shmiggity-shmack"
+        ]
+    }
+}
+
+Type "Blip-blop, in a pickle with a hiccup! Shmiggity-shmack" into terminal
+
+HTB{D3v3l0p3r_t00l5_4r3_b35t__t0015_wh4t_d0_y0u_Th1nk??}

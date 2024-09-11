@@ -29,4 +29,5 @@ m5%=M
 
 m = fifth_root(m5)
 m = long_to_bytes(m)
+m = m.decode()
 print(m)
