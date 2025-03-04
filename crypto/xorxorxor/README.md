@@ -1,12 +1,20 @@
-# xorxorxor
+### xorxorxor
 
-xorxorxor is an easy crypto challenge on hack the box focusing on the Vigenere Cipher.
+Who needs AES when you have XOR?
 
-## Encryption
+Challenge Files: [challenge.py](challenge.py), [output.txt](output.txt)<br><br>
 
-First by looking at the cipher, we see that we are using the Vigenere Cipher with a random 4 bit key.
+Category: Crypto<br>
+Difficulty: Easy
+
+---
+
+#### Encryption
+
+First by looking at the `challenge.py` file, we see that we are using the Vigenère Cipher with a random 4 bit key.
 
 ````Python
+# challenge.py
 class XOR:
     def __init__(self):
         self.key = os.urandom(4)
@@ -19,39 +27,40 @@ class XOR:
         return self.encrypt(data)
 ````
 
-The Vigenere Cipher is a comprised of a series of shift ciphers where each byte of the key corresponds to a different shift cipher. The key is repeated until the entire plaintext has been encrypted.
+The Vigenère Cipher encrypts by shifting each letter of the plaintext based on a repeating key of a fixed length. Each letter in the plaintext is shifted forward according to the corresponding letter in the key, and when the last letter of the key is reached, the encryption restarts from the beginning of the key. For example, encrypting the word "STRAWBERRY" using a Vigenère Cipher with a key length of three, we have:
 
-Shift chipers in the Vigenere Cipher encrypt by taking the XOR of the plaintext byte and the corresponding key byte. They decrypt in the same way.
+| Plaintext  | S  | T  | R  | A  | W  | B  | E  | R  | R  | Y  |
+|------------|----|----|----|----|----|----|----|----|----|----|
+| Key        | B  | A  | X  | B  | A  | X  | B  | A  | X  | B  |
+| Ciphertext | T  | T  | O  | B  | W  | Y  | F  | R  | O  | Z  |
 
-```math
-\text{For each byte}: M_i,K_i,M_i'\\
-Plaintext: (M_0M_1M_2...M_n)\\
-Key: (K_0K_1K_2...K_m)\\
-Ciphertext: (M_0'M_1'M_2'...M_n')\\
-```
 
-```math
-Encryption: M_i':= M_i \text{ xor } K_{i \mod m}\\
-Decryption: M_i:= M_i' \text{ xor } K_{i \mod m}\\
-```
 
-## Decryption
+---
 
-Since this Vigenere Cipher has a random 4 byte key and we know the flag starts with `HTB{` which is also 4 bytes, we can compute the key. We take the XOR of the first 4 bytes of the ciphertext and the plaintext `HTB{`.
+#### Decryption
+
+Since this the flag was encrypted with a 4 byte key and the plaintext flag starts with `HTB{` (which is also 4 bytes), we can compute the key and then decrypt. To compute the key we xor the first four bytes of the ciphertext with `HTB{`:
+
 
 ```Python
+pre = b'HTB{'
+
 key = b''   
 for i in range(len(pre)):
     key+=bytes([ct[i]^pre[i]])  
 ```
 
-Once we calculate the key, we just reverse the decrypt the ciphertext with this key. This is done by taking the XOR of the ciphertext with the key.
+Once we calculate the key, we use it to decrypt the flag:
 
 ```Python
 for i in range(len(ct)):
     pt+=bytes([ct[i]^key[i%len(key)]])
 ```
 
-## Flag
+---
 
+#### Flag
 > HTB{rep34t3d_x0r_n0t_s0_s3cur3}
+
+---

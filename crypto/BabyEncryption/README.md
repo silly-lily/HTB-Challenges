@@ -1,11 +1,19 @@
-# Baby Encryption
+### Baby Encryption
 
-BabyEncyption is a very easy crypto challenge on hack the box that focuses on substitution and shift cipher encryption.
+You are after an organised crime group which is responsible for the illegal weapon market in your country. As a secret agent, you have infiltrated the group enough to be included in meetings with clients. During the last negotiation, you found one of the confidential messages for the customer. It contains crucial information about the delivery. Do you think you can decrypt it?
 
-## Encryption
-First by looking at the encryption algorithm, we see that the plaintext is sent in bytes to the encryption algorithm. Then the text is broken down byte by byte, each byte is multiplied by 123, and then 18 is added to each of these multiplied bytes (under modulo 256). This is the same as xor encryption with a key of 123 followed by a shift cipher encryption with a key of 18.
+Challenge Files: [chall.py](chall.py), [msg.enc](msg.enc)<br><br>
 
-````Python
+Category: Crypto<br>
+Difficulty: Very Easy
+
+---
+
+#### Encryption
+We look at the encryption algorithm in the `chall.py` file. We see that the plaintext is broken down byte by byte, each byte is multiplied by $123$, and then $18$ is added to each of these multiplied bytes (under modulo $256$). This is the same as xor encryption with a key of $123$ followed by a shift cipher encryption with a key of $18$.
+
+```Python
+# chall.py
 def encryption(msg):
 
     ct = []
@@ -15,12 +23,28 @@ def encryption(msg):
         ct.append(((123*char)+18)%256)
 
     return bytes(ct)
-````
+```
 
-## Decryption
-To undo this encryption, first we need to undo the caesar cipher encryption then the xor encryption. First we subtract 18 to shift the bytes back. Then we find `123^-1 = 179 [mod 256]` because `123*179 = 22017 = 1 [mod 256]`.
+---
 
-````Python
+#### Decryption
+To decrypt, first we need to undo the caesar cipher encryption then undo the xor encryption. First we subtract $18$ and then multiply by the inverse of $123$  (under modulo $256$).
+
+$
+ct \equiv (msg*123)+18 \pmod{256}\\
+ct-18 \equiv msg*123 \pmod{256}\\
+msg \equiv (ct-18)*123^{-1} \pmod{256}\\
+msg \equiv (ct-18)*179 \pmod{256}
+$
+
+---
+
+## Flag
+> HTB{l00k_47_y0u_r3v3rs1ng_3qu4710n5_c0ngr475}
+
+
+```Python
+# soln.py
 def decryption(msg):
 
     pt = []
@@ -30,25 +54,6 @@ def decryption(msg):
         pt.append((179*(char-18)) % 256)
 
     return bytes(pt)
-````
-
-## Driver Code
-Lastly we need to execute this decryption algorithm on the encrypted text to get the flag. First we transform the string of hexadecimal numbers to bytes. Then we pass it to the decryption algorithm to get the flag.
-
-````Python
-MSG = '6e0a9372ec49a3f6930ed8723f9df6f6720ed8d89dc4937222ec7214d89d1e0e352ce0aa6ec82bf622227bb70e7fb7352249b7d893c493d8539dec8fb7935d490e7f9d22ec89b7a322ec8fd80e7f8921'
-ct = bytes.fromhex(MSG)
-pt = decryption(ct)
-pt = pt.decode()
-print(pt)
-````
-
-The decrypted message `pt` is:
-
-```
-Th3 nucl34r w1ll 4rr1v3 0n fr1d4y.
-HTB{l00k_47_y0u_r3v3rs1ng_3qu4710n5_c0ngr475}
 ```
 
-## Flag
-> HTB{l00k_47_y0u_r3v3rs1ng_3qu4710n5_c0ngr475}
+---

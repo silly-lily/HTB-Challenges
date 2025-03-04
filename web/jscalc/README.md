@@ -1,44 +1,86 @@
-# Jscalc
-jscalc is an easy web challenge on hack the box focusing on code injection. The challenge description mentions that you can do "inkjet trajectory calculations" using a JavaScript calculator.
+### jscalc
+In the mysterious depths of the digital sea, a specialized JavaScript calculator has been crafted by tech-savvy squids. With multiple arms and complex problem-solving skills, these cephalopod engineers use it for everything from inkjet trajectory calculations to deep-sea math. Attempt to outsmart it at your own risk! 🦑
+
+Challenge Files:
+<pre>
+web_jscalc/
+├── build-docker.sh
+├── challenge/
+│   ├── helpers/
+│   │   └── <a href="calculatorHelper.js">calculatorHelper.js</a>
+│   ├── index.js
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── routes/
+│   │   └── index.js
+│   ├── static/
+│   │   ├── css/
+│   │   │   └── main.css
+│   │   ├── favicon.png
+│   │   └── js/
+│   │       └── main.js
+│   ├── views/
+│   │   └── index.html
+│   └── yarn.lock
+├── config/
+│   └── supervisord.conf
+├── Dockerfile
+├── flag.txt
+└── supervisord.conf
+
+9 directories, 15 files
+</pre>
+
+Category: Web<br>
+Difficulty: Easy
+
+---
+
+#### Website
+
+The challenge website is a calculator:
+
 ![Website](website.png)
 
-## calculatorHelper.js
+---
 
-Looking at the `challenge/helpers/calculatorHelper.js` file, we see that the calculator uses the JavaScript `eval()` function which is vulnerable to code injection.
+#### Command Injection
+
+The challenge files appear to be a directory containing the source code for the website. The `calculatorHelper.js` file handles the logic for evaluating calculator input:
 
 ```js
-module.exports = {
-    calculate(formula) {
-        try {
-            return eval(`(function() { return ${ formula } ;}())`);
+// web_jscalc/challenge/helpers/calculatorHelper.js
+calculate(formula) {
+    try {
+        return eval(`(function() { return ${ formula } ;}())`);
 
-        } catch (e) {
-            if (e instanceof SyntaxError) {
-                return 'Something went wrong!';
-            }
+    } catch (e) {
+        if (e instanceof SyntaxError) {
+            return 'Something went wrong!';
         }
     }
 }
 ```
 
-## Getting a shell
-
-We can inject JavaScript into calculator's text box to get a Linux shell. `require('child_process')` spawns a subprocess, the `execSync('linux cmd')` command runs a linux command, and the `toString()` allows us to see the output of our command.
+Since `eval()` function executes the string passed to it as JavaScript Code, we can manipulate the calculator input to execute code that reads the flag. By spawning a subprocess to make a syscall, we can then use the `toString()` function to view the output of the syscall:
 
 ```javascript
-require('child_process').execSync('linux cmd').toString()
+require('child_process').execSync('our cmd').toString()
 ```
 
-For example, we run the linux `whoami` command find that we are `root`.
-![Our Shell](shell.png)
+---
 
-## Locating the Flag
 
-We search all of our files for a file named `flag.txt` using the linux command `find / -name flag.txt`.
-![Locating the Flag](location.png)
-
-## Flag
+#### Flag
 > HTB{c4lcul4t3d_my_w4y_thr0ugh_rc3}
 
-We view the content of the `flag.txt` file using the linux command `cat /flag.txt`.
+
+We find the flag file path:
+
+![Locating the Flag](location.png)
+
+Then we view the contents of the flag:
+
 ![Flag](flag.png)
+
+---
