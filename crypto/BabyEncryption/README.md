@@ -30,12 +30,12 @@ def encryption(msg):
 #### Decryption
 To decrypt, first we need to undo the caesar cipher encryption then undo the xor encryption. First we subtract $18$ and then multiply by the inverse of $123$  (under modulo $256$).
 
-$$
+```math
 ct \equiv (msg*123)+18 \pmod{256}\\
 ct-18 \equiv msg*123 \pmod{256}\\
 msg \equiv (ct-18)*123^{-1} \pmod{256}\\
 msg \equiv (ct-18)*179 \pmod{256}
-$$
+```
 
 ---
 
