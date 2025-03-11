@@ -52,25 +52,33 @@ First we need to query the server 3 times.
 
 From our queries, we have the three equations:
 
-$
-m_1 \equiv m^5 \pmod{n_1}\\
-m_2 \equiv m^5 \pmod{n_2}\\
-m_3 \equiv m^5 \pmod{n_3}\\
-$
+```math
+\begin{alignedat}{2}
+& m_1 \equiv m^5 & \pmod{n_1}\\
+& m_2 \equiv m^5 & \pmod{n_2}\\
+& m_3 \equiv m^5 & \pmod{n_3}\\
+\end{alignedat}
+```
 
 Since $n_1, n_2, n_3$ are all relatively prime, we can use the Chinese Remainder Theorem to find a solution to our equations:
 
-$
-N = n_1*n_2*n_3\\
-N_1 = \frac{N}{n_1},\quad x_1 \equiv N_1^{-1} \pmod{n_1}\\
-N_2 = \frac{N}{n_2},\quad x_2 \equiv N_2^{-1} \pmod{n_2}\\
-N_3 = \frac{N}{n_3},\quad x_3 \equiv N_3^{-1} \pmod{n_3}
-$
+```math
+\begin{alignedat}{2}
+& N = n_1*n_2*n_3\\
+& N_1 = \frac{N}{n_1},\quad x_1 \equiv N_1^{-1} & \pmod{n_1}\\
+& N_2 = \frac{N}{n_2},\quad x_2 \equiv N_2^{-1} & \pmod{n_2}\\
+& N_3 = \frac{N}{n_3},\quad x_3 \equiv N_3^{-1} & \pmod{n_3}\\
+\end{alignedat}
+```
 
-$
-x \equiv m^{5} \equiv m_1*N_1*x_1+m_2*N_2*x_2+m_3*N_3*x_3 \pmod{N}\\
-m = x^{\frac{1}{5}} \pmod{N}
-$
+Lastly, we take the fifth root of the solution to get the flag:
+
+```math
+\begin{alignedat}{2}
+& x \equiv m^{5} \equiv m_1*N_1*x_1+m_2*N_2*x_2+m_3*N_3*x_3 & \pmod{N}\\
+& m = x^{\frac{1}{5}} & \pmod{N}\\
+\end{alignedat}
+```
 
 ---
 

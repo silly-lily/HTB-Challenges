@@ -16,7 +16,7 @@
 
 **Web**
 
-- very easy: [Flag Command Challenge](/web/FlagCommandChallenge/), [KORP Terminal](/web/KorpTerminal/), [OnlyHacks](/web/OnlyHacks/)
+- very easy: [Flag Command Challenge](/web/FlagCommandChallenge/), [KORP Terminal](/web/KorpTerminal/), [OnlyHacks](/web/OnlyHacks/), [Spookifier](/web/Spookifier/)
 - easy: [jscalc](/web/jscalc/)
 
 ---

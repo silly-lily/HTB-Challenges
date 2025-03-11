@@ -40,16 +40,13 @@ ChaCha20 is a stream cipher that takes in a key and an iv. The plaintext is then
 
 Since both the encrypted flag and the encrypted message were encrypted using the same key and iv and we know the plaintext message, we can calculate the value of the ChaCha20 Cipher. We xor the plaintext message with the ciphertext message to get the value of the ChaCha20 Cipher. Then we can xor the encrypted flag with the value of the ChaCha20 Cipher to get the plaintext flag:
 
-$
-msg' = ChaCha20(key,iv) \oplus msg\\
-ChaCha20(key,iv) = msg' \oplus msg
-$
-
-$
-flag' = ChaCha20(key,iv) \oplus flag\\
-flag = ChaCha20(key,iv) \oplus flag'\\
-flag =  msg' \oplus msg \oplus flag'\\
-$
+```math
+\begin{alignedat}{2}
+& msg' = ChaCha20(key,iv) \oplus msg & \to  ChaCha20(key,iv) = msg' \oplus msg\\
+& flag' = ChaCha20(key,iv) \oplus flag & \to flag = ChaCha20(key,iv) \oplus flag \\
+& flag =  msg' \oplus msg \oplus flag'&\\
+\end{alignedat}
+```
 
 ---
 

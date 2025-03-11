@@ -6,6 +6,7 @@
 - [Flag Command Challenge](/web/FlagCommandChallenge/)
 - [KORP Terminal](/web/KorpTerminal/)
 - [OnlyHacks](/web/OnlyHacks/)
+- [Spookifier](/web/Spookifier/)
 
 ---
 
