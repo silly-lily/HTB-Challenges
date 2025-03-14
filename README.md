@@ -4,19 +4,25 @@
 
 **Crypto**
 
-- Very Easy: [Baby Encryption](/crypto/BabyEncryption/), [Baby Time Capsule](/crypto/BabyTimeCapsule/), [The Last Dance](/crypto/TheLastDance/)
-- Easy: [xorxorxor](/crypto/xorxorxor/)
+- Very Easy: [Baby Encryption](/Crypto/BabyEncryption/), [Baby Time Capsule](/Crypto/BabyTimeCapsule/), [The Last Dance](/Crypto/TheLastDance/)
+- Easy: [xorxorxor](/Crypto/xorxorxor/)
 
 ---
 
 **Forensics**
-- Easy: [Illumination](/forensics/Illumination/)
+- Easy: [Illumination](/Forensics/Illumination/)
+
+---
+
+**Reversing**
+
+- Very Easy: [SpookyPass](/Reversing/SpookyPass)
 
 ---
 
 **Web**
 
-- very easy: [Flag Command Challenge](/web/FlagCommandChallenge/), [KORP Terminal](/web/KorpTerminal/), [OnlyHacks](/web/OnlyHacks/), [Spookifier](/web/Spookifier/)
-- easy: [jscalc](/web/jscalc/)
+- Very Easy: [Flag Command Challenge](/Web/FlagCommandChallenge/), [KORP Terminal](/Web/KorpTerminal/), [OnlyHacks](/Web/OnlyHacks/), [Spookifier](/Web/Spookifier/)
+- Easy: [jscalc](/Web/jscalc/)
 
 ---

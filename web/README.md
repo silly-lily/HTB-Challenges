@@ -3,14 +3,14 @@
 ---
 
 **Very Easy**
-- [Flag Command Challenge](/web/FlagCommandChallenge/)
-- [KORP Terminal](/web/KorpTerminal/)
-- [OnlyHacks](/web/OnlyHacks/)
-- [Spookifier](/web/Spookifier/)
+- [Flag Command Challenge](/Web/FlagCommandChallenge/)
+- [KORP Terminal](/Web/KorpTerminal/)
+- [OnlyHacks](/Web/OnlyHacks/)
+- [Spookifier](/Web/Spookifier/)
 
 ---
 
 **Easy**
-- [jscalc](/web/jscalc/)
+- [jscalc](/Web/jscalc/)
 
 ---

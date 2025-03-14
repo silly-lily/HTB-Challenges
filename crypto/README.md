@@ -3,13 +3,13 @@
 ---
 
 **Very Easy**
-- [Baby Encryption](/crypto/BabyEncryption/)
-- [Baby Time Capsule](/crypto/BabyTimeCapsule/)
-- [The Last Dance](/crypto/TheLastDance/)
+- [Baby Encryption](/Crypto/BabyEncryption/)
+- [Baby Time Capsule](/Crypto/BabyTimeCapsule/)
+- [The Last Dance](/Crypto/TheLastDance/)
 
 ---
 
 **Easy**
-- [xorxorxor](/crypto/xorxorxor/)
+- [xorxorxor](/Crypto/xorxorxor/)
 
 ---

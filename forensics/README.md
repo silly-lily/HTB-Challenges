@@ -3,6 +3,6 @@
 ---
 
 **Easy**
-- [Illumination](/forensics/Illumination/)
+- [Illumination](/Forensics/Illumination/)
 
 ---
