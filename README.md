@@ -4,8 +4,8 @@
 
 **Crypto**
 
-- Very Easy: [Baby Encryption](/Crypto/BabyEncryption/README.md), [Baby Time Capsule](/Crypto/BabyTimeCapsule/README.md), [The Last Dance](/Crypto/TheLastDance/README.md)
-- Easy: [xorxorxor](/Crypto/xorxorxor/README.md)
+- Very Easy: [Baby Encryption](Crypto/BabyEncryption/README.md), [Baby Time Capsule](Crypto/BabyTimeCapsule/README.md), [The Last Dance](Crypto/TheLastDance/README.md)
+- Easy: [xorxorxor](Crypto/xorxorxor/README.md)
 
 ---
 
