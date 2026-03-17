@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>OpenSecret Helpdesk - Support Portal</title>
+        <!-- Bootswatch Sketchy Theme -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/sketchy/bootstrap.min.css"
+        />
+        <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">OpenSecret Helpdesk</a>
+                <div class="ms-auto">
+                    <span class="navbar-text text-light">Support Portal</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <h1 class="display-4">Need Help?</h1>
+                        <p class="lead text-muted">
+                            Submit a support ticket and our team will get back to you
+                        </p>
+                    </div>
+
+                    <!-- Ticket Form -->
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Submit Support Ticket</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="ticket-form">
+                                <!-- Name Field -->
+                                <div class="mb-3">
+                                    <label for="ticket-name" class="form-label fw-bold"
+                                        >Your Name</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="ticket-name"
+                                        placeholder="Enter your full name"
+                                        required
+                                    />
+                                </div>
+
+                                <!-- Email Field -->
+                                <div class="mb-3">
+                                    <label for="ticket-email" class="form-label fw-bold"
+                                        >Email Address</label
+                                    >
+                                    <input
+                                        type="email"
+                                        class="form-control"
+                                        id="ticket-email"
+                                        placeholder="your.email@example.com"
+                                        required
+                                    />
+                                </div>
+
+                                <!-- Description Field -->
+                                <div class="mb-3">
+                                    <label for="ticket-desc" class="form-label fw-bold"
+                                        >Issue Description</label
+                                    >
+                                    <textarea
+                                        class="form-control"
+                                        id="ticket-desc"
+                                        rows="6"
+                                        placeholder="Please describe your issue in detail..."
+                                        required
+                                    ></textarea>
+                                    <small class="form-text text-muted"
+                                        >Provide as much detail as possible to help us
+                                        resolve your issue quickly.</small
+                                    >
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="d-grid">
+                                    <button
+                                        id="submit-btn"
+                                        type="submit"
+                                        class="btn btn-primary btn-lg"
+                                    >
+                                        Submit Ticket
+                                    </button>
+                                </div>
+
+                                <!-- Message Display -->
+                                <div id="message-display" class="mt-3"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script>
+            // JWT Secret Key
+            const SECRET_KEY = "HTB{0p3n_s3cr3ts_ar3_n0t_s3cr3ts}";
+
+            // Helper function to convert string to Base64URL
+            function base64url(str) {
+                return btoa(str)
+                    .replace(/\+/g, "-")
+                    .replace(/\//g, "_")
+                    .replace(/=/g, "");
+            }
+
+            // Generate a JWT session token for the user
+            async function generateJWT() {
+                // Check if user already has a token
+                const existingToken = document.cookie
+                    .split("; ")
+                    .find((row) => row.startsWith("session_token="));
+
+                if (existingToken) {
+                    console.log("Session token already exists");
+                    return;
+                }
+
+                // Create a random guest username
+                const username = "guest_" + Math.floor(Math.random() * 10000);
+
+                // JWT Header
+                const header = { alg: "HS256", typ: "JWT" };
+
+                // JWT Payload
+                const payload = { username: username };
+
+                // Encode header and payload
+                const encodedHeader = base64url(JSON.stringify(header));
+                const encodedPayload = base64url(JSON.stringify(payload));
+                const data = encodedHeader + "." + encodedPayload;
+
+                // Sign with SECRET_KEY using HMAC-SHA256
+                const key = await crypto.subtle.importKey(
+                    "raw",
+                    new TextEncoder().encode(SECRET_KEY),
+                    { name: "HMAC", hash: "SHA-256" },
+                    false,
+                    ["sign"]
+                );
+
+                const signature = await crypto.subtle.sign(
+                    "HMAC",
+                    key,
+                    new TextEncoder().encode(data)
+                );
+
+                // Encode signature
+                const encodedSignature = base64url(
+                    String.fromCharCode(...new Uint8Array(signature))
+                );
+
+                // Complete JWT token
+                const token = data + "." + encodedSignature;
+
+                // Store token in cookie
+                document.cookie = `session_token=${token}; path=/; max-age=86400`;
+
+                console.log("Generated session for:", username);
+            }
+
+            // Generate JWT token on page load
+            generateJWT();
+
+            // Handle ticket submission
+            document
+                .getElementById("submit-btn")
+                .addEventListener("click", async (event) => {
+                    event.preventDefault();
+
+                    const name = document.getElementById("ticket-name").value;
+                    const description =
+                        document.getElementById("ticket-desc").value;
+
+                    const response = await fetch("/submit-ticket", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ name, description }),
+                    });
+
+                    const result = await response.json();
+                    document.getElementById("message-display").textContent =
+                        result.message || "Ticket submitted successfully!";
+                });
+        </script>
+    </body>
+</html>
