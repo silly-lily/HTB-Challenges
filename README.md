@@ -19,13 +19,9 @@
 
 ---
 
-- Very Easy: [Mathematricks](/Pwn/Mathematricks/)
+**Pwn**
 
----
-
-**Reversing**
-
-- Very Easy: [SpookyPass](/Reversing/SpookyPass)
+- Very Easy: [Mathematricks](/Pwn/Mathematricks/), [SpookyPass](/Reversing/SpookyPass)
 
 ---
 
