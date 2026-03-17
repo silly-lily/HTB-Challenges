@@ -4,8 +4,8 @@
 
 **Crypto**
 
-- Very Easy: [Baby Encryption](/Crypto/BabyEncryption/), [Baby Time Capsule](/Crypto/BabyTimeCapsule/), [The Last Dance](/Crypto/TheLastDance/)
-- Easy: [xorxorxor](/Crypto/xorxorxor/)
+- Very Easy: [Baby Encryption](./Crypto/BabyEncryption/), [Baby Time Capsule](./Crypto/BabyTimeCapsule/), [The Last Dance](./Crypto/TheLastDance/)
+- Easy: [xorxorxor](./Crypto/xorxorxor/)
 
 ---
 
@@ -15,7 +15,11 @@
 ---
 
 **Misc**
-- Easy: [Emdee five for life](/Misc/EmbdeeFive/)
+- Easy: [Emdee five for life](./Misc/EmbdeeFive/)
+
+---
+
+- Very Easy: [Mathematricks](/Pwn/Mathematricks/)
 
 ---
 
