@@ -2,6 +2,12 @@
 
 ---
 
+**[Coding](/Coding/)**
+
+- Very Easy: [Evaluative](/Coding/Evaluative/), [Oddly Even](/Coding/OddlyEven/), [Primed For Action](/Coding/PrimedForAction/), [Threat Index](/Coding/ThreatIndex/)
+
+---
+
 **[Crypto](/Crypto/)**
 
 - Very Easy: [Ancient Encodings](/Crypto/Ancient_Encodings/), [Baby Encryption](Crypto/BabyEncryption/), [Baby Time Capsule](Crypto/BabyTimeCapsule/), [The Last Dance](Crypto/TheLastDance/)
