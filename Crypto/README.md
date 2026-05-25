@@ -3,6 +3,7 @@
 ---
 
 **Very Easy**
+- [Ancient Encodings](/Crypto/Ancient_Encodings/)
 - [Baby Encryption](/Crypto/BabyEncryption/)
 - [Baby Time Capsule](/Crypto/BabyTimeCapsule/)
 - [The Last Dance](/Crypto/TheLastDance/)
